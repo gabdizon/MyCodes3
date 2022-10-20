@@ -19,14 +19,15 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val sharedPreferences = getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
-
+        sharedPreferences = getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(USERNAME,"").toString()
 
-        if (username == ""){
-            binding.txtWelcomeText.text = "WELCOME TO MY APPLICATION!"
-        } else{
-            binding.txtWelcomeText.text = "WELCOME TO MY APPLICATION, \n $username";
+        if(username == ""){
+            binding.txtWelcomeText.text = String.format("Welcome to my application!")
+        }
+        else{
+            binding.txtWelcomeText.text = String.format("Welcome to my application, %s!",sharedPreferences.getString(
+                USERNAME,""))
         }
 
         object : CountDownTimer(5000,1000){
